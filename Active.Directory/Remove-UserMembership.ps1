@@ -1,4 +1,4 @@
-function Remove-IFSuserMembership {
+function Remove-UserMembership {
     ##############################
     #.SYNOPSIS
     #This cmdlet removes selected user from all groups other than Domain Users
@@ -36,7 +36,7 @@ function Remove-IFSuserMembership {
         Write-Host "$User Successfully Removed from all groups" -ForegroundColor Green
     }
     else {
-        Write-host "There was an issue removing $IFSuser from one or more groups" -ForegroundColor Red
+        Write-host "There was an issue removing $user from one or more groups" -ForegroundColor Red
         Return
     }
 }
