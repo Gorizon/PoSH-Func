@@ -1,10 +1,16 @@
 Function Remove-O365License {
     ##############################
     #.SYNOPSIS
-    #Short description
+    #Removes License to O365 user
     #
     #.DESCRIPTION
-    #Long description
+    #This Cmdlet will remove licenses for O365 user
+    #
+    #TODO:
+    #Add a way to pull licenses and display dialogue to user
+    #Add Piping acceptance as well as array acceptance to parameters to skip over dialogue
+    #Setup Logic to differentiate All from selected licenses
+    #Setup Error handling
     #
     #.PARAMETER UserPrincipalName
     #Parameter description

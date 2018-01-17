@@ -16,22 +16,22 @@ function Remove-UserSessions {
     $computer = get-adcomputer -filter * -SearchBase "$userou" | Where-Object enabled -EQ "true"
 
     ## Testing Connections to Computers
-    workflow Connect-IFSWsman {
+    workflow Connect-WsmanAll {
         Param ($computer)
         foreach -parallel ($comp in $computer.name) {
             $comp | Where-Object {Connect-WSMan $_}
         }
     } 
 
-    Connect-IFSWsman -IFScomputer $computer -ErrorAction SilentlyContinue
+    Connect-WsmanAll -computer $computer -ErrorAction SilentlyContinue
 
     ## Retrieving list of available computers and Parsing data
     $locationbefore = get-location 
     Set-Location WSMan:
     $WSmanList = Get-ChildItem | Where-Object -property name -ne localhost
     $online = $WSmanList.Name
-    foreach ($IFSWSman in $online) {
-        Disconnect-WSMan -ComputerName $IFSWSman 
+    foreach ($WSmanComp in $online) {
+        Disconnect-WSMan -ComputerName $WSmanComp 
     }
     set-location $locationbefore
 

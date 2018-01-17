@@ -11,29 +11,29 @@ function Remove-IFSuserMembership {
     #group.  The cmdlet checks to see if the users is a part of more than the domain users group 
     #and outputs feedback to the end user.
     #
-    #.PARAMETER IFSUser
+    #.PARAMETER User
     #User to be removed from all membership
     #
     ##############################
     param(
-        # IFSUser
+        #User
         [Parameter(Mandatory = $true)]
-        $IFSUser
+        $User
     )
     $ErrorActBefore = $ErrorActionPreference
     $ErrorActionPreference = 'silentlycontinue'
-    $CurrentAdGroups = Get-ADPrincipalGroupMembership -Identity $IFSUser
+    $CurrentAdGroups = Get-ADPrincipalGroupMembership -Identity $User
     ForEach ($Group in $CurrentAdGroups) {
-        Remove-ADGroupMember -Identity $Group -Members $IFSUser -Confirm:$false
+        Remove-ADGroupMember -Identity $Group -Members $User -Confirm:$false
     }
     $ErrorActionPreference = $ErrorActBefore
 
-    $VerifyGroups = Get-ADPrincipalGroupMembership -Identity $IFSUser
+    $VerifyGroups = Get-ADPrincipalGroupMembership -Identity $User
     $CountGroups = $VerifyGroups | Measure-Object
     $CountGroupsResult = $CountGroups.count -eq 1
 
     if (($VerifyGroups.name -eq "Domain Users") -and ($countgroupsresult -eq $true)) {
-        Write-Host "$IFSUser Successfully Removed from all groups" -ForegroundColor Green
+        Write-Host "$User Successfully Removed from all groups" -ForegroundColor Green
     }
     else {
         Write-host "There was an issue removing $IFSuser from one or more groups" -ForegroundColor Red
