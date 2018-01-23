@@ -55,7 +55,5 @@ function Find-Duplicates {
             $FileIndex.Add($file.Name, $FileProperties)
         }
     }
-    
+    $FileIndex
 }
-
-
